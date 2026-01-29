@@ -1,0 +1,107 @@
+.filter-bar {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+select {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: white;
+    color: #334155;
+    font-weight: 500;
+    min-width: 150px;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: 2px solid #3b82f6;
+    border-color: transparent;
+}
+
+.dropdown-container {
+  position: relative;
+  min-width: 160px;
+  outline: none; /* remove focus outline */
+}
+
+.dropdown-trigger {
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.arrow {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-left: 8px;
+}
+
+/* The actual menu hidden by default */
+.dropdown-menu {
+  display: none; /* Hidden */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  min-width: 200px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  z-index: 50;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+/* Show menu on Hover OR Focus (Click) */
+.dropdown-container:hover .dropdown-menu,
+.dropdown-container:focus-within .dropdown-menu {
+  display: block;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.checkbox-item:hover {
+  background-color: #f3f4f6;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

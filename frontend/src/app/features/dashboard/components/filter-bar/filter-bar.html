@@ -1,0 +1,38 @@
+<div class="filter-bar">
+  <div class="filter-title">
+    <span class="icon">🔍</span> Filter
+  </div>
+
+  <div class="controls">
+    
+    <div class="control-group">
+      <label>Machines</label>
+      <div class="dropdown-container" tabindex="0">
+        <div class="dropdown-trigger">
+          <span *ngIf="selectedMachines.length === 0">All Machines</span>
+          <span *ngIf="selectedMachines.length > 0">{{ selectedMachines.length }} Selected</span>
+          <span class="arrow">▼</span>
+        </div>
+
+        <div class="dropdown-menu">
+            <label *ngFor="let m of machines" class="checkbox-item">
+              <input 
+                type="checkbox" 
+                [checked]="isSelected(m)" 
+                (change)="toggleMachine(m, $any($event.target).checked)">
+              {{ m }}
+            </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>Scrap Index</label>
+      <select [(ngModel)]="selectedIndex" (change)="onIndexSelect()">
+        <option [ngValue]="null">All Indices</option>
+        <option *ngFor="let i of indices" [ngValue]="i">Index {{ i }}</option>
+      </select>
+    </div>
+
+  </div>
+</div>

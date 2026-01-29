@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es2020",                       /* Modern JS features */
+    "module": "commonjs",                     /* Translate 'import' to 'require' for Node */
+    "moduleResolution": "node",               /* Standard Node resolution */
+    "outDir": "./dist",                       /* Output folder */
+    "rootDir": "./src",                       /* Input folder */
+    
+    /* Strictness */
+    "esModuleInterop": true,                  /* Fixes import issues with CommonJS modules */
+    "forceConsistentCasingInFileNames": true, /* Prevents file name bugs */
+    "strict": true,                           /* Enable smart type checking */
+    "skipLibCheck": true                      /* Speeds up compilation */
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
