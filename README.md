@@ -52,14 +52,9 @@ The frontend is an Angular application that connects to the backend via Socket.I
    cd frontend
    ```
 
-2. Install dependencies:
+2. Install dependencies and start:
    ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
+   npm install && npm start
    ```
    Access the application at `http://localhost:4200`.
 
