@@ -9,7 +9,7 @@ Brief project overview and setup instructions.
 
 ## Project Structure
 
-- `backend/`: API server, MQTT broker, and Data Simulator.
+- `backend/`: API server, MQTT broker, Data Simulator, and SQLite database.
 - `frontend/`: Angular application for data visualization.
 
 ## Getting Started
@@ -23,28 +23,22 @@ The backend includes the API, an embedded MQTT broker, and a simulator script.
    cd backend
    ```
 
-2. Install dependencies:
+2. Install dependencies and start:
    ```bash
-   npm install
+   npm install && npm start
    ```
 
-3. Setup the database:
-   ```bash
-   npx prisma generate
-   npx prisma migrate dev
-   ```
-   This creates the SQLite database and generates the Prisma client.
+**That's it!** The setup automatically:
+- Generates the Prisma Client
+- Creates the SQLite database
+- Applies database migrations
+- Builds the TypeScript code
+- Starts all services concurrently:
+  - **MQTT Broker** on port `1883`
+  - **API Server** on port `3000`
+  - **Simulator** (publishes data to MQTT)
 
-4. Start the services:
-   ```bash
-   npm start
-   ```
-   This command concurrently runs:
-   - **MQTT Broker** on port `1883`
-   - **API Server** on port `3000`
-   - **Simulator** (publishes data to MQTT)
-
-   **Environment Variables** (Defaults in `.env`):
+**Environment Variables** (Defaults in `.env`):
    - `PORT=3000`
    - `MQTT_PORT=1883`
    - `MQTT_URL=mqtt://localhost:1883`
@@ -73,5 +67,5 @@ The frontend is an Angular application that connects to the backend via Socket.I
 
 1. **Simulator**: Generates mock data and publishes to the MQTT broker.
 2. **MQTT Broker**: Receives data from the simulator.
-3. **Backend Aggregator**: Subscribes to the MQTT broker, aggregates data, and pushes it to the frontend via Socket.IO.
+3. **Backend Aggregator**: Subscribes to the MQTT broker, aggregates data, stores it in the SQLite database, and pushes real-time updates to the frontend via Socket.IO.
 4. **Frontend**: Receives real-time updates and visualizes the data.
