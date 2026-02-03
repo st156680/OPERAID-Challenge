@@ -7,4 +7,4 @@ import { DashboardComponent } from './features/dashboard/dashboard';
   imports: [DashboardComponent],
   template: `<app-dashboard></app-dashboard>`
 })
-export class App {}
+export class App { }

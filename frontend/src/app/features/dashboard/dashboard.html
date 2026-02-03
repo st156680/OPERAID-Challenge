@@ -1,17 +1,29 @@
 <div class="layout">
     <app-header></app-header>
-    <app-filter-bar [machines]="allMachines$ | async" [indices]="allIndices$ | async"
-        [selectedMachines]="(machineFilter$ | async) ?? []" [selectedIndex]="indexFilter$ | async"
-        (machineChange)="machineFilter$.next($event ?? [])" (indexChange)="indexFilter$.next($event)">
+    
+    <app-filter-bar 
+        [machines]="allMachines$ | async" 
+        [indices]="allIndices$ | async"
+        [selectedMachines]="(machineFilter$ | async) ?? []" 
+        [selectedIndices]="(indexFilter$ | async) ?? []"
+        (machineChange)="machineFilter$.next($event)" 
+        (indexChange)="indexFilter$.next($event)">
     </app-filter-bar>
 
     <main class="grid-container">
-        <app-machine-card *ngFor="let group of filteredGroups$ | async; trackBy: trackByMachineId" [group]="group">
+        <app-machine-card 
+            *ngFor="let group of filteredGroups$ | async; trackBy: trackByMachineId" 
+            [group]="group"
+            [selectedIndices]="(indexFilter$ | async) ?? []">
         </app-machine-card>
 
         <div *ngIf="(filteredGroups$ | async)?.length === 0" class="empty-state">
-            <span *ngIf="(machineFilter$ | async) || (indexFilter$ | async)">🚫 No machines match filter</span>
-            <span *ngIf="!((machineFilter$ | async) || (indexFilter$ | async))">⏳ Waiting for data...</span>
+            <span *ngIf="((machineFilter$ | async)?.length || 0) > 0 || (indexFilter$ | async)">
+                🚫 No machines match filter
+            </span>
+            <span *ngIf="!(((machineFilter$ | async)?.length || 0) > 0 || (indexFilter$ | async))">
+                ⏳ Waiting for data...
+            </span>
         </div>
     </main>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,57 +10,68 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./filter-bar.css']
 })
 export class FilterBar {
-  // --- Data Inputs (Can be null due to async pipe) ---
   @Input() machines: string[] | null = [];
   @Input() indices: number[] | null = [];
-
-  // --- State Inputs ---
-  // Multi-select uses an array. Empty array [] means "All Machines"
   @Input() selectedMachines: string[] = []; 
-  
-  // Single-select uses number or null
-  @Input() selectedIndex: number | null = null;
+  @Input() selectedIndices: number[] = [];
 
-  // --- Outputs ---
-  // strictly emit string[] so it matches the Dashboard's BehaviorSubject<string[]>
   @Output() machineChange = new EventEmitter<string[]>();
-  @Output() indexChange = new EventEmitter<number | null>();
+  @Output() indexChange = new EventEmitter<number[]>();
 
-  /**
-   * Toggles a machine in the multi-select list.
-   * If the machine is already selected, remove it.
-   * If not, add it.
-   * Always emits a new array.
-   */
-  toggleMachine(machine: string, isChecked: boolean) {
-    // 1. Create a copy of the current array to avoid mutating the input directly
-    let currentSelection = [...this.selectedMachines];
+  isMachineOpen = false;
+  isIndexOpen = false;
 
-    if (isChecked) {
-      // Add if not present
-      if (!currentSelection.includes(machine)) {
-        currentSelection.push(machine);
-      }
-    } else {
-      // Remove if present
-      currentSelection = currentSelection.filter(m => m !== machine);
-    }
+  // Close dropdowns when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
     
-    // 2. Emit the new array (Empty array = All Machines)
-    this.machineChange.emit(currentSelection);
+    // Check if click is outside the component
+    if (!target.closest('.dropdown-container')) {
+      this.isMachineOpen = false;
+      this.isIndexOpen = false;
+    }
   }
 
-  /**
-   * Helper for the template to check if a checkbox should be checked.
-   */
-  isSelected(machine: string): boolean {
+  toggleMachineDropdown(event: Event) {
+    event.stopPropagation(); // Prevent document click from closing immediately
+    this.isMachineOpen = !this.isMachineOpen;
+    this.isIndexOpen = false;
+  }
+
+  toggleIndexDropdown(event: Event) {
+    event.stopPropagation(); // Prevent document click from closing immediately
+    this.isIndexOpen = !this.isIndexOpen;
+    this.isMachineOpen = false;
+  }
+
+  toggleMachine(machine: string, isChecked: boolean) {
+    let current = [...this.selectedMachines];
+    if (isChecked) {
+      if (!current.includes(machine)) current.push(machine);
+    } else {
+      current = current.filter(m => m !== machine);
+    }
+    this.machineChange.emit(current);
+  }
+
+  isSelectedMachine(machine: string): boolean {
     return this.selectedMachines.includes(machine);
   }
 
-  /**
-   * Handled by the standard <select> change event for Indices
-   */
-  onIndexSelect(): void {
-    this.indexChange.emit(this.selectedIndex);
+  toggleIndex(index: number, isChecked: boolean) {
+    let current = [...this.selectedIndices];
+    
+    if (isChecked) {
+      if (!current.includes(index)) current.push(index);
+    } else {
+      current = current.filter(i => i !== index);
+    }
+    
+    this.indexChange.emit(current);
+  }
+
+  isSelectedIndex(index: number): boolean {
+    return this.selectedIndices.includes(index);
   }
 }

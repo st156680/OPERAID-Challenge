@@ -1,5 +1,5 @@
 <div class="card-container">
-    
+
     <div class="kpi-header">
         <div class="machine-badge">
             <span class="id-text">{{ group.machineId }}</span>
@@ -11,7 +11,7 @@
         </div>
 
         <div class="kpi-item highlight-green">
-            <span class="kpi-label">Avg (60s)</span>
+            <span class="kpi-label">Average (60s)</span>
             <span class="kpi-value">{{ avgLast60s | number:'1.1-2' }}</span>
         </div>
     </div>
@@ -21,10 +21,7 @@
     <div class="chart-section">
         <div class="chart-title">Sum Scrap per Index</div>
         <div class="chart-wrapper">
-            <canvas baseChart 
-                [data]="sumChartData" 
-                [options]="sumChartOptions" 
-                [type]="'line'">
+            <canvas baseChart [data]="sumChartData" [options]="sumChartOptions" [type]="'line'">
             </canvas>
         </div>
     </div>
@@ -32,10 +29,7 @@
     <div class="chart-section">
         <div class="chart-title">Average Scrap per Index</div>
         <div class="chart-wrapper">
-            <canvas baseChart 
-                [data]="avgChartData" 
-                [options]="avgChartOptions" 
-                [type]="'line'">
+            <canvas baseChart [data]="avgChartData" [options]="avgChartOptions" [type]="'line'">
             </canvas>
         </div>
     </div>

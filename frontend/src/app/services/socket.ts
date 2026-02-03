@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Observable, scan, startWith } from 'rxjs';
+import { Observable, retry, scan, startWith } from 'rxjs';
 
 export interface ScrapData {
   machineId: string;
@@ -20,11 +20,17 @@ export class SocketService {
 
   getUpdates(): Observable<ScrapData> {
     return new Observable<ScrapData>(observer => {
+      this.socket.on('connect_error', (error: Error) => {
+        console.error('WebSocket connection error:', error);
+        observer.error(error);
+      });
       this.socket.on('scrap_update', (data: ScrapData) => {
         observer.next(data);
       });
       return () => this.socket.disconnect();
-    });
+    }).pipe(
+      retry({ delay: 3000, count: 3 })
+    );
   }
 
   getDashboardState(): Observable<ScrapData[]> {

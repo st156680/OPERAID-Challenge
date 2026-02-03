@@ -4,25 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "build": "tsc",
+    "start": "concurrently -k -n \"BROKER,API,SIM\" -c \"blue,green,magenta\" \"npx ts-node scripts/broker.ts\" \"node dist/index.js\" \"npx ts-node scripts/simulate.ts\"",
+    "start:server": "node dist/index.js",
+    "dev": "concurrently -k -n \"BROKER,API,SIM\" -c \"blue,green,magenta\" \"npx ts-node scripts/broker.ts\" \"nodemon src/index.ts\" \"npx ts-node scripts/simulate.ts\"",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "aedes": "^0.51.3",
     "aedes-server-factory": "^0.2.1",
     "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
     "mqtt": "^5.14.1",
+    "prisma": "^5.22.0",
     "socket-io": "^1.0.0",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/mqtt": "^0.0.34",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.2.0",
+    "concurrently": "^9.2.1",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
