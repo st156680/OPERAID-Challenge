@@ -1,29 +1,26 @@
-/* Global Reset & Base Styles */
 :root {
-  /* Branding & Accents */
-  --primary-color: #3b82f6; /* Modern Blue */
+  --primary-color: #3b82f6;
   --primary-hover: #2563eb;
-  
-  /* Neutral Palette (Slate-like) */
+
   --bg-page: #f1f5f9;
   --bg-surface: #ffffff;
   --text-main: #0f172a;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
   --border-light: #e2e8f0;
-  
-  /* Status Colors */
+
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
 
-  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -38,13 +35,17 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   font-weight: 600;
   letter-spacing: -0.025em;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -63,7 +64,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #94a3b8;
 }
 
-/* Utility / Common */
 .card {
   background: var(--bg-surface);
   border-radius: 12px;
