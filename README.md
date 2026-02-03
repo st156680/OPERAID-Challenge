@@ -28,7 +28,14 @@ The backend includes the API, an embedded MQTT broker, and a simulator script.
    npm install
    ```
 
-3. Start the services:
+3. Setup the database:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev
+   ```
+   This creates the SQLite database and generates the Prisma client.
+
+4. Start the services:
    ```bash
    npm start
    ```
