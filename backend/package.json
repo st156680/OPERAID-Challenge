@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "prisma generate && prisma migrate deploy",
     "build": "tsc",
+    "prestart": "npm run build",
     "start": "concurrently -k -n \"BROKER,API,SIM\" -c \"blue,green,magenta\" \"npx ts-node scripts/broker.ts\" \"node dist/index.js\" \"npx ts-node scripts/simulate.ts\"",
     "start:server": "node dist/index.js",
     "dev": "concurrently -k -n \"BROKER,API,SIM\" -c \"blue,green,magenta\" \"npx ts-node scripts/broker.ts\" \"nodemon src/index.ts\" \"npx ts-node scripts/simulate.ts\"",
